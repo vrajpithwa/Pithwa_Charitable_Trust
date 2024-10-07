@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>પીઠવા ચેરિટેબલ ટ્રસ્ટ</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .navbar {
+            background-color: #ebebeb;
+            padding: 15px;
+        }
+        .navbar-title {
+            color: #393185;
+            font-size: 24px;
+            margin: 10px;
+        }
+        .centered-image {
+            display: block;
+            margin: 25px auto;
+            max-width: 30%;
+            height: auto;
+        }
+        .form-data {
+            background-color: rgb(255, 255, 255);
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 2px;
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    
+        input[type="file"] {
+            width: auto;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+        input[type="submit"],
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .radio-group {
+            margin: 8px 0;
+        }
+        .input-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .input-row > div {
+            width: 48%;
+        }
+        @media (max-width: 768px) {
+            .input-row > div {
+                width: 100%;
+            }
+        }
+        .popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80vh; /* Ensure the popup doesn’t exceed 80% of the viewport height */
+    overflow: auto; /* Make the popup content scrollable */
+}
+
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            font-size: 18px;
+            color: red;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        .dropdown-content {
+  right: 0;
+}
+.language-switcher-container {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    z-index: 1000; /* Make sure it appears above other elements */
+    text-align: right; /* Aligns the content to the right */
+    margin: 10px;
+}
+
+.language-switcher-container label {
+    margin-right: 10px; /* Space between the label and select box */
+}
+
+.language-switcher-container select {
+    padding: 5px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: #0077ff;
+    color:white;
+    border: 1px solid #ccc;
+}
+.avatar {
+            width: 100px; /* Passport size */
+            height: 120px; /* Passport size */
+            border-radius: 5px;
+            object-fit: cover;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+   
+    <div class="navbar">
+        <h1 class="navbar-title" id="navbar-title">પીઠવા ચેરિટેબલ ટ્રસ્ટ</h1>
+    </div>
+    <div class="language-switcher-container">
+        <label for="select-language" id="select-language">ભાષા બદલો:</label>
+        <select id="language-switcher" onchange="changeLanguage(this.value)">
+            <option value="en">English</option>
+            <option value="gu">ગુજરાતી</option>
+        </select>
+    </div>
+          
+    <img src="./logo.jpeg" class="centered-image" alt="Trust Logo" />
+
+    <form class="form-data" action="#" method="post" id="main-form">
+      <div>
+        
+        <label for="family-head" id="family-head-label">કૂટુંબના મુખ્ય વ્યક્તિનું નામ:</label>
+        <input type="text" id="family-head" name="family-head" required><br>
+
+        <img id="image-preview" class="avatar" src="./blank.png"alt="Avatar Placeholder">
+    
+        <label for="family-head-photo" id="family-head-photo">પાસપોર્ટ સાઇઝનો ફોટો અપલોડ કરો</label>
+        <input type="file" id="file-input" required>
+        <br><br>
+    </div>
+  
+        <label for="village-name" id="village-name-label">કુટુંબનું મૂળ વતન:</label>
+        <input type="text" id="village-name" name="village-name" required><br><br>
+
+        <div class="input-row">
+            <div>
+                <label for="blood-group" id="blood-group-label">બ્લડ ગ્રુપ:</label>
+                <input type="text" id="blood-group" name="blood-group">
+            </div>
+            <div>
+                <label for="education" id="education-label">અભ્યાસ:</label>
+                <input type="text" id="education" name="education">
+            </div>
+        </div><br>
+
+        <div class="input-row">
+            <div>
+                <label for="family-members-count" id="family-members-count-label">કુટુંબના સભ્યોની સંખ્યા:</label>
+                <input type="number" id="family-members-count" name="family-members-count"><br><br>
+            </div>
+            <div>
+                <label for="dob" id="dob-label">જન્મ તારીખ:</label>
+                <input type="date" id="dob" name="dob"><br><br>
+            </div>
+        </div>
+
+        <label for="address" id="address-label">પત્ર વ્યવહારનું સરનામું:</label>
+        <textarea id="address" name="address" rows="4" cols="50"></textarea><br><br>
+
+        <div class="input-row">
+            <div>
+                <label for="phone" id="phone-label">સંપર્ક નંબર:</label>
+                <input type="tel" id="phone" name="phone"><br><br>
+            </div>
+            <div>
+                <label for="occupation" id="occupation-label">ધંધા/કાર્યનું નામ:</label>
+                <input type="text" id="occupation" name="occupation"><br><br>
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div>
+                <label for="Matajimadh" id="mataji-label">તમારા માતાજીનો મઢ અને સુરાપુરા દાદા કઇ જગ્યાએ છે તે ગામ નું નામ લખો:</label>
+                <input type="text" id="mataji" name="mataji"><br><br>
+            </div>
+            <div>
+                <label for="add-family" id="add-family-label">કુટુંબના વ્યક્તિઓ ઉમેરો:</label><br><br>
+                <input type="button" id="open-popup" value="Add family members:"><br><br>
+            </div>
+        </div>
+
+        <table id="details-table">
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th id="tb-name">નામ:</th>
+                    <th id="tb-rel">સંબંધ:</th>
+                    <th id="tb-dob">જન્મ તારીખ:</th>
+                    <th id="tb-bg">બ્લડ ગ્રુપ:</th>
+                    <th id="tb-ms">વૈવાહિક સ્થિતિ:</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <label for="help" id="help-label">શું તમે પીઠવા ચેરિટેબલ ટ્રસ્ટને મદદ કરવા ઈચ્છતા છો?</label><br>
+        <input type="radio" id="yes" name="help" value="yes">
+        <label for="yes" id="yes-label">હા</label><br>
+        <input type="radio" id="no" name="help" value="no">
+        <label for="no" id="no-label">ના</label><br><br>
+
+        <label for="suggestions" id="suggestions-label">અન્ય સૂચનાઓ/સંદેશો:</label>
+        <textarea id="suggestions" name="suggestions" rows="4" cols="50"></textarea><br><br>
+
+        <input type="submit" value="મોકલો" id="submit-button">
+    </form>
+
+    <!-- Popup Form -->
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="close-popup">&times;</span>
+            <h3 id="popup-title">Family Member Details</h3>
+            <form id="member-form">
+                <label for="name" id="popup-name-label">નામ:</label>
+                <input type="text" id="name" name="name" required><br><br>
+
+                <img id="image-preview-mem" class="avatar" src="./blank.png"alt="Avatar Placeholder">
+                <label for="family-head-photo" id="family-head-photo">પાસપોર્ટ સાઇઝનો ફોટો અપલોડ કરો</label>
+                <input type="file" id="file-input-mem" required>
+                <br><br>
+
+                <label for="relation" id="popup-relation-label">સંબંધ:</label>
+                <input type="text" id="relation" name="relation" required><br><br>
+
+                <label for="bdate" id="popup-bdate-label">જન્મ તારીખ:</label>
+                <input type="date" id="bdate" name="bdate" required><br><br>
+
+                <label for="blood-group-popup" id="popup-blood-group-label">બ્લડ ગ્રુપ:</label>
+                <input type="text" id="blood-group-popup" name="blood-group-popup" required><br><br>
+
+                <label for="marital-status" id="popup-marital-status-label">Marital  વૈવાહિક સ્થિતિ:</label>
+                <input type="text" id="marital-status" name="marital-status" required><br><br>
+
+                <input type="submit" value="મોકલો" id="popup-submit">
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+document.getElementById('file-input').addEventListener('change', function(event) {
+    const imagePreview = document.getElementById('image-preview');
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result; // Set the uploaded image as the source
+        };
+
+        reader.readAsDataURL(file); // Read the image file as a data URL
+    } else {
+        imagePreview.src = 'blank.png'; // Set back to default blank avatar if no image is uploaded
+    }
+});
+
+
+document.getElementById('file-input-mem').addEventListener('change', function(event) {
+    const imagePreview = document.getElementById('image-preview-mem');
+    const file = event.target.files[0];
+
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result; // Set the uploaded image as the source
+        };
+
+        reader.readAsDataURL(file); // Read the image file as a data URL
+    } else {
+        imagePreview.src = 'blank.png'; // Set back to default blank avatar if no image is uploaded
+    }
+});
+
+
+        window.onload = function() {
+        // Set default language to English
+        document.getElementById('language-switcher').value = 'en';  // Set the dropdown to English
+        changeLanguage('en');  // Trigger the language change to English on page load
+    };
+
+const translations = {
+    
+            en: {
+                'family-head-photo':'Upload passport size photo:',
+                'tb-name':'Name',
+                'tb-rel':'Relation',
+                'tb-dob':'Date of birth',
+                'tb-bg':'Blood Group',
+                'tb-ms':'Marital Status',
+                'select-language': 'Change Language:',
+                'navbar-title': 'Pithwa Charitable Trust',
+                'family-head-label': "Family Head's Name:",
+                'village-name-label': "Family's Native Village:",
+                'blood-group-label': 'Blood Group:',
+                'education-label': 'Education:',
+                'family-members-count-label': 'Number of Family Members:',
+                'dob-label': 'Date of Birth:',
+                'address-label': 'Postal Address:',
+                'phone-label': 'Phone Number:',
+                'occupation-label': 'Occupation:',
+                'mataji-label': 'Write the name of the village where your Mataji’s shrine and Surapura Dada are located:',
+                'add-family-label': 'Add Family Members:',
+                'help-label': 'Would you like to help Pithwa Charitable Trust?',
+                'yes-label': 'Yes',
+                'no-label': 'No',
+                'suggestions-label': 'Any Suggestions/Message:',
+                'submit-button': 'Submit',
+                'popup-title': 'Family Member Details',
+                'popup-name-label': 'Name:',
+                'popup-relation-label': 'Relation:',
+                'popup-bdate-label': 'Birth Date:',
+                'popup-blood-group-label': 'Blood Group:',
+                'popup-marital-status-label': 'Marital Status:',
+                'popup-submit': 'Submit'
+            },
+            gu: {
+                'family-head-photo':'પાસપોર્ટ સાઇઝનો ફોટો અપલોડ કરો:',
+                'tb-name':'નામ:',
+                'tb-rel':'સંબંધ:',
+                'tb-dob':'જન્મ તારીખ:',
+                'tb-bg':'બ્લડ ગ્રુપ:',
+                'tb-ms':'વૈવાહિક સ્થિતિ:',
+                'select-language':'ભાષા બદલો:',
+                'navbar-title': 'પીઠવા ચેરિટેબલ ટ્રસ્ટ',
+                'family-head-label': "કૂટુંબના મુખ્ય વ્યક્તિનું નામ:",
+                'village-name-label': "કુટુંબનું મૂળ વતન:",
+                'blood-group-label': 'બ્લડ ગ્રુપ:',
+                'education-label': 'અભ્યાસ:',
+                'family-members-count-label': 'કુટુંબના સભ્યોની સંખ્યા:',
+                'dob-label': 'જન્મ તારીખ:',
+                'address-label': 'પત્ર વ્યવહારનું સરનામું:',
+                'phone-label': 'સંપર્ક નંબર:',
+                'occupation-label': 'ધંધા/કાર્યનું નામ:',
+                'mataji-label': 'તમારા માતાજીનો મઢ અને સુરાપુરા દાદા કઇ જગ્યાએ છે તે ગામ નું નામ લખો:',
+                'add-family-label': 'કુટુંબના વ્યક્તિઓ ઉમેરો:',
+                'help-label': 'શું તમે પીઠવા ચેરિટેબલ ટ્રસ્ટને મદદ કરવા ઈચ્છતા છો?',
+                'yes-label': 'હા',
+                'no-label': 'ના',
+                'suggestions-label': 'અન્ય સૂચનાઓ/સંદેશો:',
+                'submit-button': 'મોકલો',
+                'popup-title': 'કુટુંબના સભ્યોની વિગતો',
+                'popup-name-label': 'નામ:',
+                'popup-relation-label': 'સંબંધ:',
+                'popup-bdate-label': 'જન્મ તારીખ:',
+                'popup-blood-group-label': 'બ્લડ ગ્રુપ:',
+                'popup-marital-status-label': 'વૈવાહિક સ્થિતિ:',
+                'popup-submit': 'મોકલો'
+            }
+        };
+
+        function changeLanguage(language) {
+            document.querySelectorAll('[id]').forEach(element => {
+                const translationKey = element.id;
+                if (translations[language][translationKey]) {
+                    element.textContent = translations[language][translationKey];
+                    if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+                        element.value = translations[language][translationKey];
+                    }
+                }
+            });
+        }
+
+        document.getElementById("open-popup").addEventListener("click", function() {
+            document.getElementById("popup").style.display = "block";
+        });
+
+        document.getElementById("close-popup").addEventListener("click", function() {
+            document.getElementById("popup").style.display = "none";
+        });
+
+
+        const popup = document.getElementById("popup");
+        const openPopupButton = document.getElementById("open-popup");
+        const closePopupButton = document.getElementById("close-popup");
+        const memberForm = document.getElementById("member-form");
+        const detailsTableBody = document.querySelector("#details-table tbody");
+
+        openPopupButton.addEventListener("click", function() {
+            popup.style.display = "flex";
+        });
+
+        closePopupButton.addEventListener("click", function() {
+            popup.style.display = "none";
+        });
+
+
+document.getElementById('popup-submit').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const name = document.getElementById('name').value;
+    const relation = document.getElementById('relation').value;
+    const bdate = document.getElementById('bdate').value;
+    const bloodGroup = document.getElementById('blood-group-popup').value;
+    const maritalStatus = document.getElementById('marital-status').value;
+    const imageSrc = document.getElementById('image-preview-mem').src; // Get the image source
+
+    // Create a new row and cells
+    const table = document.getElementById('details-table').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+
+    const cellPhoto = newRow.insertCell(0);
+    const cellName = newRow.insertCell(1);
+    const cellRelation = newRow.insertCell(2);
+    const cellDob = newRow.insertCell(3);
+    const cellBg = newRow.insertCell(4);
+    const cellMs = newRow.insertCell(5);
+
+    // Set the contents of the new cells
+    cellPhoto.innerHTML = `<img src="${imageSrc}" class="avatar" alt="Family Member Photo">`; // Display image
+    cellName.textContent = name;
+    cellRelation.textContent = relation;
+    cellDob.textContent = bdate;
+    cellBg.textContent = bloodGroup;
+    cellMs.textContent = maritalStatus;
+    
+    // Close the popup after adding the family member
+    document.getElementById('popup').style.display = 'none';
+    document.getElementById('member-form').reset();
+    document.getElementById('image-preview-mem').src='./blank.png';
+
+});
+
+    </script>
+</body>
+</html>
