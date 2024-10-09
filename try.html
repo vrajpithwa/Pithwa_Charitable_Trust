@@ -9,10 +9,10 @@
             margin: 0;
             font-family: Arial, sans-serif;
         }
-        .navbar {
+        /* .navbar {
             background-color: #ebebeb;
             padding: 15px;
-        }
+        } */
         .navbar-title {
             color: #393185;
             font-size: 24px;
@@ -115,8 +115,9 @@
         .close-btn {
             float: right;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 50px;
             color: red;
+            background-color: #555;
         }
         table {
             width: 100%;
@@ -131,14 +132,19 @@
         .dropdown-content {
   right: 0;
 }
-.language-switcher-container {
-    position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    z-index: 1000; /* Make sure it appears above other elements */
-    text-align: right; /* Aligns the content to the right */
-    margin: 10px;
+.navbar {
+    background-color: #ebebeb;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between; /* Distribute space between elements */
+    align-items: center; /* Center items vertically */
 }
+
+.language-switcher-container {
+    margin-left: 10px; /* Space between the navbar title and the language switcher */
+    text-align: right; /* Align the content to the right */
+}
+
 
 .language-switcher-container label {
     margin-right: 10px; /* Space between the label and select box */
@@ -171,7 +177,7 @@
 </head>
 <body>
    
-    <div class="navbar">
+    <!-- <div class="navbar">
         <h1 class="navbar-title" id="navbar-title">પીઠવા ચેરિટેબલ ટ્રસ્ટ</h1>
     </div>
     <div class="language-switcher-container">
@@ -180,6 +186,17 @@
             <option value="en">English</option>
             <option value="gu">ગુજરાતી</option>
         </select>
+    </div> -->
+
+    <div class="navbar">
+        <h1 class="navbar-title" id="navbar-title">પીઠવા ચેરિટેબલ ટ્રસ્ટ</h1>
+        <div class="language-switcher-container">
+            <label for="select-language" id="select-language">ભાષા બદલો:</label>
+            <select id="language-switcher" onchange="changeLanguage(this.value)">
+                <option value="en">English</option>
+                <option value="gu">ગુજરાતી</option>
+            </select>
+        </div>
     </div>
           
     <img src="./logo.jpeg" class="centered-image" alt="Trust Logo" />
