@@ -1,15 +1,7 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "mydb";
-$conn = new mysqli($servername, $username, $password);
-
-if($conn -> connect_error){
-    die("conn failed: ".$conn->connect_error ); 
-}else{
-    echo "conn success";
-}
-
+echo "Testing error output";  // Test if PHP is running correctly
 ?>

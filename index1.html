@@ -201,7 +201,7 @@
           
     <img src="./logo.jpeg" class="centered-image" alt="Trust Logo" />
 
-    <form class="form-data" action="#" method="post" id="main-form">
+    <form class="form-data" action="form_data.php" method="POST" id="main-form">
       <div>
         
         <label for="family-head" id="family-head-label">કૂટુંબના મુખ્ય વ્યક્તિનું નામ:</label>
@@ -323,6 +323,22 @@
     </div>
 
     <script>
+
+let familyMembers = [];
+
+document.getElementById('popup-submit').addEventListener('click', function(e) {
+  e.preventDefault();
+  let member = {
+    name: document.getElementById('name').value,
+    relation: document.getElementById('relation').value,
+    dob: document.getElementById('bdate').value,
+    bloodGroup: document.getElementById('blood-group-popup').value,
+    maritalStatus: document.getElementById('marital-status').value
+  };
+  familyMembers.push(member);
+  document.getElementById('popup').style.display = 'none';
+});
+console.log(familyMembers);
 
 document.getElementById('file-input').addEventListener('change', function(event) {
     const imagePreview = document.getElementById('image-preview');
