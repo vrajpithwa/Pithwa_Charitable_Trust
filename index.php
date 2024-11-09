@@ -20,7 +20,7 @@
           
     <img src="./logo.jpeg" class="centered-image" alt="Trust Logo" />
 
-    <form class="form-data" action="img.php" method="POST" id="main-form" enctype="multipart/form-data">
+    <form class="form-data" id="main-form" enctype="multipart/form-data">
       <div>
       
     <label for="family-head" id="family-head-label">કૂટુંબના મુખ્ય વ્યક્તિનું નામ:</label>
@@ -38,10 +38,25 @@
         <input type="text" id="village-name" name="village-name" required><br><br>
 
         <div class="input-row">
-            <div>
+            <!-- <div>
                 <label for="blood-group" id="blood-group-label">બ્લડ ગ્રુપ:</label>
                 <input type="text" id="blood-group" name="blood-group">
-            </div>
+            </div> -->
+            <div>
+        <label for="blood-group" id="blood-group-label">બ્લડ ગ્રુપ:</label>
+        <select id="blood-group" name="blood-group" required>
+            <option value="">પસંદ કરો</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="Don't Know">ખબર નથી</option>
+        </select>   
+    </div>
             <div>
                 <label for="education" id="education-label">અભ્યાસ:</label>
                 <input type="text" id="education" name="education">
@@ -58,6 +73,7 @@
                 <input type="date" id="dob" name="dob"><br><br>
             </div>
         </div>
+        <div id="family-member-container"></div>
 
         <label for="address" id="address-label">પત્ર વ્યવહારનું સરનામું:</label>
         <textarea id="address" name="address" rows="4" cols="50"></textarea><br><br>
@@ -78,12 +94,12 @@
                 <label for="Matajimadh" id="mataji-label">તમારા માતાજીનો મઢ અને સુરાપુરા દાદા કઇ જગ્યાએ છે તે ગામ નું નામ લખો:</label>
                 <input type="text" id="mataji" name="mataji"><br><br>
             </div>
-            <div>
+            <!-- <div>
                 <label for="add-family" id="add-family-label">કુટુંબના વ્યક્તિઓ ઉમેરો:</label><br><br>
                 <input type="button" id="open-popup" value="Add family members:"><br><br>
-            </div>
+            </div> -->
         </div>
-
+<!-- 
         <table id="details-table">
             <thead>
                 <tr>
@@ -97,7 +113,7 @@
             </thead>
             <tbody>
             </tbody>
-        </table>
+        </table> -->
 
         <label for="help" id="help-label">શું તમે પીઠવા ચેરિટેબલ ટ્રસ્ટને મદદ કરવા ઈચ્છતા છો?</label><br>
         <input type="radio" id="yes" name="help" value="yes">
@@ -112,6 +128,9 @@
     </form>
 
     <script>
+
+
+
         document.getElementById('file-input').onchange = function(event) {
     const file = event.target.files[0];
     if (file) {
@@ -159,9 +178,13 @@
                 'popup-bdate-label': 'Birth Date:',
                 'popup-blood-group-label': 'Blood Group:',
                 'popup-marital-status-label': 'Marital Status:',
-                'popup-submit': 'Submit'
+                'popup-submit': 'Submit',
+                'select-blood': 'Select Blood Group',
+                'dont-know': "Don't Know"
             },
             gu: {
+                'select-blood': 'પસંદ કરો',
+                'dont-know': 'ખબર નથી',
                 'family-head-photo':'પાસપોર્ટ સાઇઝનો ફોટો અપલોડ કરો:',
                 'tb-name':'નામ:',
                 'tb-rel':'સંબંધ:',
@@ -189,7 +212,7 @@
                 'popup-title': 'કુટુંબના સભ્યની વિગત',
                 'popup-name-label': 'નામ:',
                 'popup-relation-label': 'સંબંધ:',
-                'popup-bdate-label': 'જન્મ તારીખ:',
+                'popup-bdate-label': 'જન્મ તારી    ખ:',
                 'popup-blood-group-label': 'બ્લડ ગ્રુપ:',
                 'popup-marital-status-label': 'વૈવાહિક સ્થિતિ:',
                 'popup-submit': 'સબમિટ કરો'
@@ -204,6 +227,192 @@
                 }
             }
         }
+
+
+        
+         // Get family member count input and listen for changes
+         document.getElementById('family-members-count').addEventListener('input', function() {
+            generateFamilyMemberInputs(this.value);
+        });
+
+        function generateFamilyMemberInputs(count) {
+    const container = document.getElementById('family-member-container');
+    container.innerHTML = ''; // Clear previous inputs
+
+    // Blood group options HTML
+    const bloodGroupOptions = `
+        <option value="">પસંદ કરો</option>
+        <option value="A+">A+</option>
+        <option value="A-">A-</option>
+        <option value="B+">B+</option>
+        <option value="B-">B-</option>
+        <option value="O+">O+</option>
+        <option value="O-">O-</option>
+        <option value="AB+">AB+</option>
+        <option value="AB-">AB-</option>
+        <option value="Don't Know">ખબર નથી</option>
+    `;
+
+    // Relation options HTML
+    const relationOptions = `
+        <option value="">પસંદ કરો</option>
+        <option value="Spouse">Spouse</option>
+        <option walue="Grand-father">Grand-Father</option>
+        <option value="Father">Father</option>
+        <option value="Father-inlaw">Father-inlaw</option>
+        <option value="Grand-mother">Grand-Mother</option>
+        <option value="Mother">Mother</option>
+        <option value="Mother-inlaw">Mother-inlaw</option>
+        <option value="Brother">Brother</option>
+        <option value="Brother-inlaw">Brother-inlaw</option>
+        <option value="Sister">Sister</option>
+        <option value="Sister-inlaw">Sister-law</option>
+        <option value="Grand-son">Grand-Son</option>
+        <option value="Son">Son</option>
+        <option value="Grand-daughter">Grand-Daughter</option>
+        <option value="Daughter">Daughter</option>
+        <option value="Daughter-inlaw">Daughter-law</option>
+        
+        
+
+    `;
+
+        // Marital status options HTML
+        const maritalStatusOptions = `
+        <option value="">પસંદ કરો</option>
+        <option value="Single">Single</option>
+        <option value="Married">Married</option>
+        <option value="Engaged">Engaged</option>
+        <option value="Widowed">Widowed</option>
+        <option value="Divorced">Divorced</option>
+    `;
+
+    if (count > 0) {
+        for (let i = 0; i < count; i++) {
+            let memberDiv = document.createElement('div');
+            memberDiv.className = 'family-member';
+            memberDiv.innerHTML = `
+                <h4>Family Member ${i + 1}</h4>
+                <label for="name_${i}">Name:</label>
+                <input type="text" name="name_${i}" required><br>
+
+                <div class="photo-section">
+                    <img id="member-preview-${i}" class="member-avatar" src="./blank.png" alt="Member Photo Preview" style="width: 100px; height: 100px; object-fit: cover;">
+                    <label for="member_photo_${i}">Member's Photo:</label>
+                    <input type="file" id="member_photo_${i}" name="member_photo_${i}" class="member-photo" accept="image/*" required><br>
+                </div>
+
+                <label for="relation_${i}">Relation:</label>
+                <select name="relation_${i}" id="relation_${i}" required>
+                    ${relationOptions}
+                </select><br>
+
+                <label for="dob_${i}">Date of Birth:</label>
+                <input type="date" name="dob_${i}" required><br>
+
+                <label for="blood_group_${i}">Blood Group:</label>
+                <select name="blood_group_${i}" id="blood_group_${i}" required>
+                    ${bloodGroupOptions}
+                </select><br>
+
+        <label for="marital_status_${i}">Marital Status:</label>
+                <select name="marital_status_${i}" id="marital_status_${i}" required>
+                    ${maritalStatusOptions}
+                </select><br>
+
+                <label for="education_${i}">Education:</label>
+                <input type="text" name="education_${i}"><br><br>
+            `;
+            container.appendChild(memberDiv);
+
+            // Add event listener for photo preview
+            const photoInput = document.getElementById(`member_photo_${i}`);
+            photoInput.addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById(`member-preview-${i}`).src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+    }
+}
+
+// Form submission handler
+document.getElementById('main-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get the count of family members
+    const familyMemberCount = parseInt(document.getElementById('family-members-count').value) || 0;
+    
+    // Create FormData object
+    const formData = new FormData(this);
+    
+    // Collect family members data
+    let familyMembers = [];
+    for (let i = 0; i < familyMemberCount; i++) {
+        let member = {
+            name: document.querySelector(`input[name="name_${i}"]`).value,
+            relation: document.querySelector(`select[name="relation_${i}"]`).value,
+            dob: document.querySelector(`input[name="dob_${i}"]`).value,
+            blood_group: document.querySelector(`select[name="blood_group_${i}"]`).value,
+            marital_status: document.querySelector(`select[name="marital_status_${i}"]`).value,
+            education: document.querySelector(`input[name="education_${i}"]`).value
+        };
+        familyMembers.push(member);
+
+        // Add photo file to FormData if it exists
+        const photoFile = document.querySelector(`#member_photo_${i}`).files[0];
+        if (photoFile) {
+            formData.append(`member_photo_${i}`, photoFile);
+        }
+    }
+    
+    // Add family members data as JSON string
+    formData.append('family_members', JSON.stringify(familyMembers));
+
+    // Submit form using fetch with improved error handling
+    fetch('img.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // First try to get the response as text
+        return response.text();
+    })
+    .then(text => {
+        // Try to parse the text as JSON
+        try {
+            const data = JSON.parse(text);
+            if (data.status === 'success') {
+                alert('Data saved successfully!');
+                // Reset the form
+                this.reset();
+                // Reset all member preview images
+                document.querySelectorAll('.member-avatar').forEach(img => {
+                    img.src = './blank.png';
+                });
+            } else {
+                alert('Error: ' + (data.message || 'Unknown error occurred'));
+            }
+        } catch (e) {
+            console.error('Server response:', text);
+            throw new Error('Invalid JSON response from server');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while saving the data: ' + error.message);
+    });
+});
+         
+       
     </script>
 </body>
 </html>

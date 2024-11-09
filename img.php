@@ -13,7 +13,7 @@ if (!$conn) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
-    // Validate image upload
+    // Validate main image upload
     if ($_FILES['image']['error'] !== UPLOAD_ERR_OK) {
         echo json_encode(['status' => 'error', 'message' => 'Image upload failed: ' . $_FILES['image']['error']]);
         exit;
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
         exit;
     }
 
-    // Read image file
+    // Read family head image file
     $family_head_photo = file_get_contents($_FILES['image']['tmp_name']);
    
     // Retrieve form data
@@ -43,10 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
     $help = $_POST['help'];
     $suggestions = $_POST['suggestions'];
 
+    // Get family members data from JSON string
+    $family_members = isset($_POST['family_members']) ? json_decode($_POST['family_members'], true) : [];
+
     // Start transaction
     mysqli_begin_transaction($conn);
 
     try {
+        // Insert family head data
         $query = "INSERT INTO family_head_details (
             family_head_name, 
             family_head_photo, 
@@ -83,6 +87,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
         );
 
         if (mysqli_stmt_execute($stmt)) {
+            // Get the last inserted family_head_id
+            $family_head_id = mysqli_insert_id($conn);
+
+            // Insert family members
+            if (!empty($family_members)) {
+                $member_query = "INSERT INTO family_members (
+                    family_head_sr_no, 
+                    member_name, 
+                    member_photo,
+                    member_relation, 
+                    member_dob, 
+                    member_blood_group, 
+                    member_marital_status, 
+                    member_education
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                
+                $member_stmt = mysqli_prepare($conn, $member_query);
+
+                foreach ($family_members as $index => $member) {
+                    // Process member's photo
+                    $member_photo = null;
+                    if (isset($_FILES["member_photo_" . $index]) && $_FILES["member_photo_" . $index]['error'] === UPLOAD_ERR_OK) {
+                        if (in_array($_FILES["member_photo_" . $index]['type'], $allowed_types)) {
+                            $member_photo = file_get_contents($_FILES["member_photo_" . $index]['tmp_name']);
+                        } else {
+                            throw new Exception("Invalid file type for member " . ($index + 1));
+                        }
+                    }
+
+                    mysqli_stmt_bind_param($member_stmt, "isssssss", 
+                        $family_head_id, 
+                        $member['name'],
+                        $member_photo,
+                        $member['relation'], 
+                        $member['dob'], 
+                        $member['blood_group'], 
+                        $member['marital_status'], 
+                        $member['education']
+                    );
+                    
+                    if (!mysqli_stmt_execute($member_stmt)) {
+                        throw new Exception("Error inserting family member: " . mysqli_stmt_error($member_stmt));
+                    }
+                }
+                mysqli_stmt_close($member_stmt);
+            }
+
+            // Commit transaction
             mysqli_commit($conn);
             echo json_encode(['status' => 'success', 'message' => 'Data saved successfully']);
         } else {
