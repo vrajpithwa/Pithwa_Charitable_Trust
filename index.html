@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pithwa Charitable Trust</title>
+      <link rel="icon" type="image/x-icon" href="./logo_transparent.jpeg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+       
+
+        @font-face {
+            font-family: 'logo';
+            src: url('./COOPBL.TTF') format('truetype');
+        }
+
+      
+
+    .header img {
+        max-width: 250px; /* Adjust size for laptops */
+        height: auto;
+        flex-shrink: 0;
+    }
+
+   
+    .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(194, 240, 252);
+            color: rgb(19, 19, 19);
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .header-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the text horizontally */
+        }
+
+        .header h1 {
+            font-size: clamp(40px, 4vw, 60px);
+            margin: 0 25px 10px;
+            font-family: 'logo';
+            color: rgb(60, 42, 152);
+            text-align: center; /* Center the text */
+            font-weight: normal;
+        }
+
+    .header p {
+        font-size: clamp(18px, 2vw, 25px);
+        text-align: left;
+        margin-top: 5px;
+    }
+
+    .red-line {
+        border: none;
+        border-top: 2px solid red;
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    /* Adjustments for laptops and larger devices */
+    @media (min-width: 1024px) {
+        .header {
+            justify-content: flex-start; /* Align everything to the left */
+        }
+
+        .header img {
+            max-width: 300px; /* Slightly larger logo for laptops */
+        }
+
+        .header h1 {
+            font-size: 55px; /* Fixed size for laptops */
+            margin-right: 20px;
+        }
+
+        .header div {
+            margin-left: 20px; /* Add spacing between the logo and text */
+        }
+    }
+
+    /* Adjustments for smaller screens (already good for mobile) */
+    @media (max-width: 768px) {
+        .header {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+         .header-text {
+                align-items: center; /* Ensure center alignment */
+                width: 100%; /* Full width */
+            }
+
+        .header img {
+            max-width: 80%; /* Smaller logo for mobile */
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: clamp(30px, 5vw, 50px); /* Smaller dynamic size */
+            text-align: center;
+        }
+    }
+
+        .content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .column {
+            flex: 1;
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .card h2 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .mission-list {
+            list-style-type: disc;
+            padding-left: 30px;
+            font-weight: bold;
+        }
+
+        .bank-details {
+            display: grid;
+            gap: 10px;
+        }
+
+        .activities {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .activity-item {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background-color: #2980b9;
+        }
+
+        .donors {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
+        .donor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            
+        }
+
+        .donor-item {
+            background-color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .event-card {
+              background-color: #c90000;
+            color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .red-line {
+            border: none;
+            border-top: 2px solid rgb(154, 154, 154);
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .tagline {
+            text-align: center;
+            font-size: clamp(16px, 2vw, 25px);
+        }
+         .designer-credit {
+    text-align: center;  /* Center the designer text */
+    font-size: 14px;
+    color: #aaa; /* Lighter color for the designer credit */
+    padding: 10px;
+    background-color: #f4f4f4; /* Different background to separate it */
+    border-top: 2px solid #ccc; /* Optional border to separate from footer */
+}
+.designer-credit {
+    text-align: center;
+    background-color: #2c3e50; /* Match footer background */
+    color: #ecf0f1; /* Light text on dark background */
+    padding: 15px;
+    font-size: 14px;
+}
+
+.designer-credit a {
+    color: #ffffff; /* Bright accent color */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.designer-credit a:hover {
+    color: #2ecc71; /* Color change on hover */
+    text-decoration: underline;
+}
+
+
+
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+ .header-text {
+                align-items: center; /* Ensure center alignment */
+                width: 100%; /* Full width */
+            }
+
+            .activities {
+                grid-template-columns: 1fr;
+            }
+
+            .donor-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <img src="./logo_transparent.jpeg" alt="Logo" class="logo" />
+           <div class="header-text">
+                <h1>Pithwa Charitable Trust</h1>
+                <hr class="red-line" />
+                <p class="tagline">Unity, Service, Prosperity, Cooperation, Education</p>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content">
+            <div class="column">
+                <div class="card">
+                    <h2>Our Mission</h2>
+                    <p>The Pithwa Charitable Trust is dedicated to uplifting society by providing crucial support to financially needy families:</p>
+                    <ul class="mission-list">
+                        <li>Medical Assistance</li>
+                        <li>Educational Support</li>
+                        <li>Widow Welfare</li>
+                        <li>Group Marriage Support</li>
+                        <li>Community Welfare Initiatives</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h2>Donation Information</h2>
+                    <div class="bank-details">
+                        <div>
+                            <strong>Bank Details:</strong>
+                            <p>Bank of India, Gomtipur Branch</p>
+                            <p>A/C No: 202510210000169</p>
+                            <p>IFSC: BKID0002025</p>
+                        </div>
+                        <div>
+                            <strong>Tax Benefits:</strong>
+                            <p>80G and CSR Certificate Available</p>
+                            <p>URN: AAFTP6755NF20241</p>
+                            <p>PAN: AAFTP6755N</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <h2>Our Activities</h2>
+                    <div class="activities">
+                        <div class="activity-item">Admin Brothers Meeting</div>
+                        <div class="activity-item">Educational-help / Seminar</div>
+                        <div class="activity-item">Medical Camp</div>
+                        <div class="activity-item">Women Admin Group</div>
+                        <div class="activity-item">
+                            <a href="./mou.html" style="color: white; text-decoration: none;">MOU for Medical Initiatives</a>
+                        </div>
+                        <div class="activity-item">
+                            <a href="./downloads.html" style="color: white; text-decoration: none; font-weight: bold;">Download Documents</a>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="event-card">
+                    <h2>Upcoming Event: Snehamilan Ceremony</h2>
+                    <p>Date: Saturday, 11th January 2025</p>
+                    <p>Location: Chotila</p>
+                    <p>Sponsorship Opportunities Available!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donors -->
+        <div class="donors">
+            <h2>Our Valued Donors</h2>
+            <div class="donor-grid">
+                   <div class="donor-item">Konark Plastomech Pvt. Ltd. <br> Shri Kantibhai Pragjibhai Pithwa</div>
+                <div class="donor-item">Saurashtra Engg. Ahmedabad <br> Shri Kantibhai Ranchhodbhai Pithwa </div>
+                <div class="donor-item">Community Supporters</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>Pithwa Charitable Trust - Serving Humanity with Grace</p>
+            <p>Contact: info@pithwacharitabletrust.org</p>
+            <p>With the infinite grace of Ishtadev Shri Vishwakarma Dada</p>
+            <p>Jaza Haath Raliyamana</p>
+            <p>Jai Vishwakarma 🙏</p>
+        </footer>
+      <div class="designer-credit">
+    <p><a href="https://vraj.ketanpithva.com" target="_blank">Designed and Developed by: Vraj Pithwa</a></p>
+    <p>Distributed by: Ketan Pithwa</p>
+
+</div>
+    </div>
+</body>
+</html>

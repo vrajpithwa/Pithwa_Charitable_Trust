@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
     }
 
     // Validate image type
-    $allowed_types = ['image/jpeg', 'image/png', 'image/gif'];
+    $allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/*'];
     if (!in_array($_FILES['image']['type'], $allowed_types)) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid file type. Only JPG, PNG and GIF allowed.']);
         exit;

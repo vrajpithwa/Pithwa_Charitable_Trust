@@ -26,7 +26,9 @@
     <label for="family-head" id="family-head-label">કૂટુંબના મુખ્ય વ્યક્તિનું નામ:</label>
     <input type="text" id="family-head" name="family-head" required><br>
 
-    <img id="image-preview" class="avatar" src="./blank.png" alt="Avatar Placeholder">
+    <img id="image-preview" class="avatar" src="./blank.png" alt="Avatar Placeholder" accept="
+    image/*"
+    >
 
     <label for="image" id="family-head-photo">પાસપોર્ટ સાઇઝનો ફોટો અપલોડ કરો</label>
     <input type="file" id="file-input" name="image" accept="image/*" required>
@@ -61,8 +63,8 @@
                 <label for="education" id="education-label">અભ્યાસ:</label>
                 <input type="text" id="education" name="education">
             </div>
-        </div><br>
-
+        </div>
+        <br>
         <div class="input-row">
             <div>
                 <label for="family-members-count" id="family-members-count-label">કુટુંબના સભ્યોની સંખ્યા:</label>
@@ -381,7 +383,7 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`HTTP error! image status: ${response.status}`);
         }
         // First try to get the response as text
         return response.text();
