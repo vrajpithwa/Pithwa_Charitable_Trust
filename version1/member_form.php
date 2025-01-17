@@ -4,11 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>પીઠવા ચેરિટેબલ ટ્રસ્ટ</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./assets/css/index.css">
+    <style> 
+        .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+    </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1 class="navbar-title" id="navbar-title">પીઠવા ચેરિટેબલ ટ્રસ્ટ</h1>
+<div class="container">
+    <?php include "header.php";?>
+
+        
         <div class="language-switcher-container">
             <label for="select-language" id="select-language">ભાષા બદલો:</label>
             <select id="language-switcher" onchange="changeLanguage(this.value)">
@@ -16,9 +25,9 @@
                 <option value="gu">ગુજરાતી</option>
             </select>
         </div>
-    </div>
+
           
-    <img src="./logo.jpeg" class="centered-image" alt="Trust Logo" />
+
 
     <form class="form-data" id="main-form" enctype="multipart/form-data">
       <div>
@@ -128,6 +137,7 @@
 
         <input type="submit" value="મોકલો" id="submit-button">
     </form>
+     </div>
 
     <script>
 
@@ -377,7 +387,7 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
     formData.append('family_members', JSON.stringify(familyMembers));
 
     // Submit form using fetch with improved error handling
-    fetch('img.php', {
+    fetch('member_form_data_to_db.php', {
         method: 'POST',
         body: formData
     })
@@ -416,5 +426,6 @@ document.getElementById('main-form').addEventListener('submit', function(e) {
          
        
     </script>
+   
 </body>
 </html>

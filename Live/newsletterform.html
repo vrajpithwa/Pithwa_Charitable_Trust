@@ -1,0 +1,35 @@
+<form action="add_newsletter.php" method="POST" enctype="multipart/form-data">
+    <label for="image">Upload Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required><br><br>
+    
+    <label for="date">Newsletter Date:</label>
+    <input type="date" id="date" name="newsletter_date" required><br><br>
+    
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+    
+    <label for="excerpt">Excerpt:</label>
+    <textarea id="excerpt" name="excerpt" required></textarea><br><br>
+    
+    <label for="pdf">URL:</label>
+    <input type="text" id="pdf" name="pdf_url" required><br><br>
+    
+    <button type="submit">Add Newsletter</button>
+</form>
+
+
+<form action="mou_upload.php" method="POST" enctype="multipart/form-data">
+    <label for="hospital_name">Hospital Name:</label>
+    <input type="text" id="hospital_name" name="hospital_name" required>
+
+    <label for="mou_details">MOU Details:</label>
+    <textarea id="mou_details" name="mou_details" required></textarea>
+
+    <label for="mou_date">Valid From (Date):</label>
+    <input type="date" id="mou_date" name="mou_date" required>
+
+    <label for="file_upload">Upload MOU File (PDF or Image):</label>
+    <input type="file" id="file_upload" name="file_upload" accept="application/pdf, image/*" required>
+
+    <button type="submit">Add MOU</button>
+</form>
